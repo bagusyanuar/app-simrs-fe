@@ -1,0 +1,82 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
+
+@import "tailwindcss";
+
+@theme {
+  --font-inter: "Inter", sans-serif;
+}
+
+@layer base {
+  body {
+    font-family: var(--font-inter);
+  }
+  /* Hilangkan spinner di WebKit */
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  /* Hilangkan spinner di Firefox */
+  input[type="number"] {
+    -moz-appearance: textfield;
+  }
+}
+
+@layer components {
+  .button {
+    @apply flex items-center gap-1 justify-center transition-colors duration-300 ease-in-out leading-none cursor-pointer;
+  }
+
+  /* button varian */
+  .button.fill {
+    @apply bg-teal-500 text-white border border-teal-500 disabled:bg-teal-700 disabled:border-teal-700 disabled:cursor-default;
+  }
+
+  .button.fill:hover {
+    @apply bg-teal-700 border-teal-700;
+  }
+
+  .button.outline {
+    @apply bg-white text-teal-500 border border-teal-500;
+  }
+
+  .button.outline:hover {
+    @apply bg-teal-700 border-teal-700 text-white;
+  }
+
+  .button.outline-neutral {
+    @apply bg-white text-neutral-700 border border-gray-400;
+  }
+
+  .button.outline-neutral:hover {
+    @apply bg-gray-900/10;
+  }
+
+  .button.outline-neutral:disabled {
+    @apply cursor-default border-gray-300 text-neutral-700/40 hover:bg-white;
+  }
+
+  /* button size */
+  .button.normal {
+    @apply px-3 py-2.5 text-sm rounded-md;
+  }
+
+  .button.small {
+    @apply px-2 py-1.5 rounded-md text-xs;
+  }
+
+  .sidebar-tree {
+    @apply w-full flex items-center justify-between text-sm py-2 px-3 relative 
+    cursor-pointer rounded-md border border-transparent font-semibold text-neutral-700 
+    bg-white hover:bg-gray-900/5 hover:text-neutral-900 hover:border-gray-300 
+    transition-all duration-300 ease-in-out;
+  }
+
+  .sidebar-menu {
+    @apply w-full flex items-center gap-2 text-sm py-2 px-3 relative 
+    cursor-pointer rounded-md border border-transparent font-semibold text-neutral-700 
+    bg-white hover:bg-gray-900/5 hover:text-neutral-900 hover:border-gray-300 
+    transition-all duration-300 ease-in-out;
+  }
+}
