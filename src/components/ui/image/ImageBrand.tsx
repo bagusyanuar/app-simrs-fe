@@ -3,15 +3,17 @@ import { twMerge } from 'tailwind-merge'
 
 interface IProps {
     className?: string
+    variant?: 'base' | 'white'
 }
 const ImageBrand: React.FC<IProps> = ({
-    className = ''
+    className = '',
+    variant = 'base'
 }) => {
     return (
         <img
-            src='/static/images/logo.png'
+            src={variant === 'white' ? '/static/images/logo-white.png' : '/static/images/logo.png'}
             className={twMerge(
-                'h-16 w-fit mb-1',
+                'h-16 w-fit',
                 className
             )}
         />
