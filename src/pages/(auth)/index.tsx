@@ -5,34 +5,18 @@ import { LabelValidator } from '@/components/ui/label'
 import { Button } from '@/components/ui/button'
 import { ImageBrand } from '@/components/ui/image'
 import { Link } from 'react-router-dom'
-
-import { useState } from 'react'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { loginSchema, type TLoginSchema } from '@/schemas/auth/login.schema'
+import { useLogin } from '@/hooks/modules/auth'
 
 
 export default function LoginPage() {
 
-    const [isSubmitted, setIsSubmitted] = useState<boolean>(false)
-
-    const { handleSubmit, register, formState: { errors } } = useForm<TLoginSchema>({
-        resolver: zodResolver(loginSchema),
-        mode: 'onSubmit',
-        shouldFocusError: false,
-        defaultValues: {
-            email: '',
-            password: ''
-        }
-    })
-
-
-    const onSubmit = async (data: TLoginSchema) => {
-        setIsSubmitted(true)
-        await new Promise(resolve => setTimeout(resolve, 1500))
-        console.log(data);
-        setIsSubmitted(false)
-    }
+    const {
+        register,
+        errors,
+        onSubmit,
+        handleSubmit,
+        isSubmitted
+    } = useLogin()
 
     return (
         <section className="w-full h-full flex items-center justify-center bg-teal-500">
@@ -47,6 +31,7 @@ export default function LoginPage() {
                         <TextField
                             placeholder='Email'
                             prefixIcon={<LuMail size={14} />}
+                            disabled={isSubmitted}
                             isError={!!errors.email}
                             {...register('email')}
                         />
@@ -56,6 +41,7 @@ export default function LoginPage() {
                         <PasswordField
                             placeholder='Password'
                             isError={!!errors.password}
+                            disabled={isSubmitted}
                             {...register('password')}
                         />
                         {errors.password && <LabelValidator text={errors.password.message} />}
