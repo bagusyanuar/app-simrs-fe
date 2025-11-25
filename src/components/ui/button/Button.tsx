@@ -27,7 +27,7 @@ const Button: React.FC<IProps> = ({
                 variant,
                 size,
                 // 'px-3 py-2.5 border border-green-500 flex items-center justify-center text-sm text-white cursor-pointer disabled:cursor-default rounded-md bg-green-500 hover:bg-green-700 hover:border-green-700 transition-colors duration-300 ease-in-out',
-                onProcess && 'bg-green-700 border-green-700 cursor-default',
+                onProcess && 'bg-teal-700 border-teal-700 cursor-default',
                 className
             )}
             onClick={onClick}
