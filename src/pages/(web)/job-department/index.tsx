@@ -2,7 +2,7 @@ import { PageTitle, CardTitle } from '@/components/ui/typography'
 import { Card, FlexBox } from '@/components/ui/container'
 import { LuNetwork, LuCirclePlus } from 'react-icons/lu'
 import { Button } from '@/components/ui/button'
-import { Table, TableSearch, type TColumn } from '@/components/ui/table'
+import { Table, TableSearch, TableAction, type TColumn } from '@/components/ui/table'
 
 type TJobDepartment = {
     id: string,
@@ -31,11 +31,18 @@ export default function JobDepartmentPage() {
         {
             key: 'medical',
             text: 'Medical',
-            cell: (row) => <div className='w-24 h-5 flex items-center justify-center rounded-full bg-green-100 border border-green-400 text-green-500'>
+            cell: () => <div className='w-24 h-5 flex items-center justify-center rounded-full bg-green-100 border border-green-400 text-green-500'>
                 <span className='text-[10px]'>Medis</span>
             </div>,
             align: 'justify-center',
             width: 'min-w-40 w-40'
+        },
+        {
+            key: 'action',
+            text: '',
+            cell: () => <TableAction />,
+            align: 'justify-center',
+            width: 'min-w-20 w-20'
         },
     ]
 
