@@ -6,6 +6,7 @@ import { Link } from 'react-router'
 type TItem = {
     to?: string
     text?: string
+    isActive?: boolean
 }
 
 interface IProps {
@@ -32,6 +33,10 @@ const SidebarTree: React.FC<IProps> = ({
     }
 
     useEffect(() => {
+        setOpen(isActive);
+    }, [isActive]);
+
+    useEffect(() => {
         if (open && collapsibleRef.current) {
             setHeight(collapsibleRef.current.scrollHeight)
         } else {
@@ -56,7 +61,7 @@ const SidebarTree: React.FC<IProps> = ({
                     size={16}
                     className={twMerge(
                         'transition-transform duration-300 ease-in-out',
-                        (open || isActive) && 'rotate-90'
+                        open && 'rotate-90'
                     )}
                 />
             </div>
@@ -73,7 +78,10 @@ const SidebarTree: React.FC<IProps> = ({
                             return <Link
                                 key={k}
                                 to={v.to || '#'}
-                                className='px-2 py-1.5 w-full rounded-sm text-sm font-light text-white/80 cursor-pointer hover:bg-white/20  hover:text-white transition-all duration-300 ease-in-out focus:ring-0 focus:outline-none'
+                                className={twMerge(
+                                    'px-2 py-1.5 w-full rounded-sm text-sm font-light text-white/80 cursor-pointer hover:bg-white/20  hover:text-white transition-all duration-300 ease-in-out focus:ring-0 focus:outline-none',
+                                    v.isActive && 'text-white bg-white/20'
+                                )}
                             >
                                 {v.text}
                             </Link>

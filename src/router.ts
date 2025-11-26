@@ -7,6 +7,7 @@ export type Path =
   | `/`
   | `/dashboard`
   | `/installation`
+  | `/job-department`
 
 export type Params = {
   
