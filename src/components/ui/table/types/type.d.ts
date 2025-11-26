@@ -8,3 +8,8 @@ export type TColumn<T> = {
     cellClassName?: string | ((row: T, index: number) => string)
     sortable?: boolean
 }
+
+export type TAction<T> = {
+    onEdit?: (row: T, index: number) => void
+    onDelete?: (row: T, index: number) => void
+}

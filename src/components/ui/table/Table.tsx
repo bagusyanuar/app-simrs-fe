@@ -1,8 +1,9 @@
-import React from 'react'
+import { useMemo } from 'react'
 import { twMerge } from 'tailwind-merge'
-import type { TColumn } from './types/type'
+import type { TColumn, TAction } from './types/type'
 import TableHeader from './TableHeader'
 import TableRow from './TableRow'
+import TableAction from './TableAction'
 
 interface IProps<T> {
     columns: TColumn<T>[]
@@ -16,12 +17,14 @@ interface IProps<T> {
     isProcessing?: boolean
     pageSizeOptions?: number[]
     onPageSizeChange?: (size: number) => void
+    action?: TAction<T>
 }
 
 const Table = <T,>({
     columns,
     data,
     onSort,
+    action,
     onPageSizeChange,
     className = '',
     containerClassName = '',
@@ -31,6 +34,27 @@ const Table = <T,>({
     isProcessing = false,
     pageSizeOptions = [10, 25, 50],
 }: IProps<T>) => {
+
+    const mergedColumns: TColumn<T>[] = useMemo(() => {
+        if (!action) return columns
+
+        return [
+            ...columns,
+            {
+                key: 'action',
+                text: '',
+                cell: (row, index) => (
+                    <TableAction
+                        onEdit={() => action.onEdit?.(row, index)}
+                        onDelete={() => action.onDelete?.(row, index)}
+                    />
+                ),
+                align: 'justify-center',
+                width: 'min-w-20 w-20',
+            }
+        ]
+    }, [columns, action])
+
     return (
         <div className={twMerge(
             'w-full',
@@ -45,13 +69,13 @@ const Table = <T,>({
                     tableClassName
                 )}>
                     <TableHeader
-                        columns={columns}
+                        columns={mergedColumns}
                         className={headerClassName}
                         onSort={onSort}
                         isProcessing={isProcessing}
                     />
                     <TableRow
-                        columns={columns}
+                        columns={mergedColumns}
                         data={data}
                         className={rowClassName}
                         isProcessing={isProcessing}

@@ -6,9 +6,15 @@ import { motion } from 'motion/react'
 
 interface IProps {
     className?: string
+    onEdit?: () => void
+    onDelete?: () => void
 }
 
-const TableAction: React.FC<IProps> = ({ className }) => {
+const TableAction: React.FC<IProps> = ({
+    className = '',
+    onEdit,
+    onDelete
+}) => {
 
     const buttonRef = useRef<HTMLDivElement>(null)
     const [anchorRect, setAnchorRect] = useState<DOMRect | null>(null)
@@ -36,15 +42,21 @@ const TableAction: React.FC<IProps> = ({ className }) => {
 
             {anchorRect && (
                 <DropdownMenu
-                    rect={anchorRect}
+                    anchorRef={buttonRef}
                     onClose={() => setAnchorRect(null)}
                 >
-                    <div className="w-full px-1.5 py-1 rounded-sm flex items-center gap-1.5 text-neutral-700 text-xs cursor-pointer hover:bg-gray-200">
+                    <div
+                        className="w-full px-1.5 py-1 rounded-sm flex items-center gap-1.5 text-neutral-700 text-xs cursor-pointer hover:bg-gray-200"
+                        onClick={onEdit}
+                    >
                         <LuPencil size={12} />
                         <span>Edit</span>
                     </div>
 
-                    <div className="w-full px-1.5 py-1 rounded-sm flex items-center gap-1.5 text-neutral-700 text-xs cursor-pointer hover:bg-gray-200">
+                    <div
+                        className="w-full px-1.5 py-1 rounded-sm flex items-center gap-1.5 text-neutral-700 text-xs cursor-pointer hover:bg-gray-200"
+                        onClick={onDelete}
+                    >
                         <LuTrash size={12} />
                         <span>Delete</span>
                     </div>
@@ -62,14 +74,14 @@ export default TableAction
 // ===================================================================
 
 interface IDropdownProps {
-    rect: DOMRect,
+    anchorRef: React.RefObject<HTMLElement | null>,
     children?: React.ReactNode
     onClose?: () => void
     className?: string
 }
 
 const DropdownMenu: React.FC<IDropdownProps> = ({
-    rect,
+    anchorRef,
     children,
     onClose,
     className = ''
@@ -78,23 +90,26 @@ const DropdownMenu: React.FC<IDropdownProps> = ({
     const ref = useRef<HTMLDivElement>(null)
     const [pos, setPos] = useState({ top: 0, left: 0, flipped: false })
 
-    
+
 
     // Position calculation + auto-flip
     function calculatePosition() {
-        if (!ref.current) return
+        if (!anchorRef.current || !ref.current) return
 
+        const anchor = anchorRef.current.getBoundingClientRect()
         const menuWidth = ref.current.offsetWidth
         const menuHeight = ref.current.offsetHeight
+
         const viewportHeight = window.innerHeight
 
-        let top = rect.bottom + 6
-        const left = rect.right - menuWidth
+        /** Default position: bottom */
+        let top = anchor.bottom + 6
+        const left = anchor.right - menuWidth
         let flipped = false
 
         // Auto flip
-        if (rect.bottom + menuHeight + 10 > viewportHeight) {
-            top = rect.top - menuHeight - 6
+        if (anchor.bottom + menuHeight + 10 > viewportHeight) {
+            top = anchor.top - menuHeight - 6
             flipped = true
         }
 
@@ -132,7 +147,7 @@ const DropdownMenu: React.FC<IDropdownProps> = ({
         <motion.div
             ref={ref}
             className={twMerge(
-                'absolute z-300 bg-white border border-gray-400 rounded-md shadow-md p-1.5 w-40 flex flex-col gap-1',
+                'absolute z-300 bg-white border border-gray-400 rounded-md shadow-md p-1.5 w-32 flex flex-col gap-1',
                 className
             )}
             style={{

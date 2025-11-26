@@ -27,7 +27,7 @@ const TableHeader = <T,>({
                             <th
                                 key={key}
                                 className={twMerge(
-                                    'font-semibold',
+                                    'font-normal',
                                     header.columnClassName,
                                     header.width ?? '',
                                 )}
