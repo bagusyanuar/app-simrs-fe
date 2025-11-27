@@ -21,7 +21,8 @@ const useJobDepartment = () => {
         defaultValues: {
             code: '',
             name: '',
-            isMedical: false
+            isMedical: false,
+            description: ''
         }
     })
 

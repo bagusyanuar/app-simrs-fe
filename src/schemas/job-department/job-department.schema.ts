@@ -5,6 +5,7 @@ export const jobDepartmentSchema = z.object({
         .min(1, 'kolom kode wajib di isi'),
     name: z.string()
         .min(1, 'kolom nama wajib di isi'),
+    description: z.string(),
     isMedical: z.boolean('medical staff wajib di pilih')
 })
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { twMerge } from "tailwind-merge";
 
 interface IProps
@@ -17,39 +17,34 @@ const Switch = React.forwardRef<HTMLInputElement, IProps>(
             isError = false,
             disabled = false,
             onChange,
-            defaultChecked,
             ...props
         },
         ref
     ) => {
-        const [checked, setChecked] = React.useState(!!defaultChecked);
-
-        const internalRef = React.useRef<HTMLInputElement>(null);
+        const inputRef = React.useRef<HTMLInputElement | null>(null);
 
         const setRefs = (el: HTMLInputElement | null) => {
-            internalRef.current = el;
+            inputRef.current = el;
 
             if (typeof ref === "function") ref(el);
             else if (ref && "current" in ref) ref.current = el;
         };
 
+        const [checked, setChecked] = React.useState(false);
+
+        // 🔥 Sync dari RHF → Switch
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        useEffect(() => {
+            if (inputRef.current) {
+                setChecked(inputRef.current.checked);
+            }
+        });
+
         const toggle = () => {
-            if (!internalRef.current || disabled) return;
+            if (!inputRef.current || disabled) return;
 
-            const newValue = !checked;
-            setChecked(newValue);
-
-            internalRef.current.checked = newValue;
-
-            // 🚀 EVENT PALSU YANG VALID UNTUK RHF
-            onChange?.({
-                target: {
-                    name: internalRef.current.name,
-                    type: "checkbox",
-                    checked: newValue,
-                    value: newValue,
-                },
-            } as unknown as React.ChangeEvent<HTMLInputElement>);
+            inputRef.current.click(); // ✔ memicu event asli browser (RHF menangkap)
+            setChecked(inputRef.current.checked); // update UI
         };
 
         return (
@@ -57,11 +52,13 @@ const Switch = React.forwardRef<HTMLInputElement, IProps>(
                 <input
                     ref={setRefs}
                     type="checkbox"
-                    defaultChecked={defaultChecked}
                     className="hidden"
                     disabled={disabled}
-                    onChange={onChange}
-                    {...props}
+                    onChange={(e) => {
+                        setChecked(e.target.checked); // RHF → UI
+                        onChange?.(e);
+                    }}
+                    {...props} // ⭐ register() menangani name, ref, defaultValue, reset(), dll
                 />
 
                 <button

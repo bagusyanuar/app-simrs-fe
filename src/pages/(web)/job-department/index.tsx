@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button'
 import { Table, TableSearch, type TColumn } from '@/components/ui/table'
 import { useState } from 'react'
 import { ModalForm } from '@/components/ui/modal'
-import { TextField } from '@/components/ui/textfield'
+import { TextField, TextAreaField } from '@/components/ui/textfield'
 import { LabelForm, LabelValidator } from '@/components/ui/label'
 import { Switch } from '@/components/ui/switch'
 import { useJobDepartment } from '@/hooks/modules/job-department'
@@ -47,7 +47,7 @@ export default function JobDepartmentPage() {
         },
         {
             key: 'medical',
-            text: 'Medical',
+            text: 'Bagian Medis',
             cell: () => <LuCircleCheck size={14} className='text-teal-500' />,
             align: 'justify-center',
             width: 'min-w-40 w-40'
@@ -115,7 +115,7 @@ export default function JobDepartmentPage() {
                     />
                     {errors.code && <LabelValidator text={errors.code.message} />}
                 </div>
-                <div className='w-full mb-2.5'>
+                <div className='w-full mb-1.5'>
                     <LabelForm text='Nama' />
                     <TextField
                         placeholder='nama'
@@ -123,6 +123,16 @@ export default function JobDepartmentPage() {
                         {...register('name')}
                     />
                     {errors.name && <LabelValidator text={errors.name.message} />}
+                </div>
+                <div className='w-full mb-2.5'>
+                    <LabelForm text='Deskripsi' />
+                    <TextAreaField
+                        rows={4}
+                        placeholder='deskripsi'
+                        isError={!!errors.description}
+                        {...register('description')}
+                    />
+                    {errors.description && <LabelValidator text={errors.description.message} />}
                 </div>
                 <div className='w-full mb-3'>
                     <LabelForm text='Medical Staff' className='mb-2' />
