@@ -23,7 +23,8 @@ export default function JobDepartmentPage() {
         errors,
         onSubmit,
         handleSubmit,
-        isSubmitted
+        isSubmitted,
+        reset
     } = useJobDepartment()
 
     const columns: TColumn<TJobDepartment>[] = [
@@ -97,7 +98,10 @@ export default function JobDepartmentPage() {
             <ModalForm
                 show={modalOpen}
                 className='w-100'
-                onClose={() => setModalOpen(false)}
+                onClose={() => {
+                    setModalOpen(false)
+                    reset()
+                }}
                 onSubmit={handleSubmit(onSubmit)}
                 onProcess={isSubmitted}
                 title='Form Unit Kerja'

@@ -6,7 +6,15 @@ import { jobDepartmentSchema, type TJobDepartmentSchema } from '@/schemas/job-de
 const useJobDepartment = () => {
     const [isSubmitted, setIsSubmitted] = useState<boolean>(false)
 
-    const { handleSubmit, register, formState: { errors } } = useForm<TJobDepartmentSchema>({
+    const {
+        handleSubmit,
+        register,
+        formState:
+        {
+            errors
+        },
+        reset
+    } = useForm<TJobDepartmentSchema>({
         resolver: zodResolver(jobDepartmentSchema),
         mode: 'onSubmit',
         shouldFocusError: false,
@@ -22,6 +30,7 @@ const useJobDepartment = () => {
         await new Promise(resolve => setTimeout(resolve, 1500))
         console.log(data);
         setIsSubmitted(false)
+        reset()
     }
 
     return {
@@ -29,7 +38,8 @@ const useJobDepartment = () => {
         onSubmit,
         isSubmitted,
         register,
-        errors
+        errors,
+        reset
     }
 }
 

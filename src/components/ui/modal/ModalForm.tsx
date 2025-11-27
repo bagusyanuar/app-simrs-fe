@@ -43,7 +43,7 @@ const ModalForm: React.FC<IProps> = ({
                                 className
                             )}
                         >
-                            <div className='w-full px-4 py-2.5 flex items-center justify-between border-b border-gray-400'>
+                            <div className='w-full px-6 py-3 flex items-center justify-between border-b border-gray-400'>
                                 <div className='flex items-center gap-1.5'>
                                     <HiOutlineClipboardDocumentList size={16} className='text-neutral-700' />
                                     <span className='text-sm text-neutral-700 font-bold'>{title}</span>
@@ -55,10 +55,10 @@ const ModalForm: React.FC<IProps> = ({
                                     <LuX size={12} />
                                 </div>
                             </div>
-                            <div className='w-full p-4'>
+                            <div className='w-full px-6 py-4'>
                                 {children}
                             </div>
-                            <div className='w-full px-4 py-2.5 gap-1.5 flex items-center justify-end border-t border-gray-400'>
+                            <div className='w-full px-6 py-3 gap-1.5 flex items-center justify-end border-t border-gray-400'>
                                 <Button variant='outline-neutral'
                                     disabled={onProcess}
                                     onClick={onClose}
