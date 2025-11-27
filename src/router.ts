@@ -8,6 +8,7 @@ export type Path =
   | `/dashboard`
   | `/installation`
   | `/job-department`
+  | `/job-position`
 
 export type Params = {
   

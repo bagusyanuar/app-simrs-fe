@@ -32,8 +32,9 @@ const AppSidebar = () => {
                                 isActive: pathname === ROUTE.jobDepartment
                             },
                             {
-                                to: '#',
-                                text: 'Jabatan'
+                                to: ROUTE.jobPosition,
+                                text: 'Jabatan',
+                                isActive: pathname === ROUTE.jobPosition
                             },
                             {
                                 to: ROUTE.installation,
