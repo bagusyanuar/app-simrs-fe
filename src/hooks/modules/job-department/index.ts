@@ -1,0 +1,1 @@
+export { default as useJobDepartment } from './useJobDepartment'

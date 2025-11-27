@@ -3,12 +3,28 @@ import { Card, FlexBox } from '@/components/ui/container'
 import { LuNetwork, LuCirclePlus, LuCircleCheck } from 'react-icons/lu'
 import { Button } from '@/components/ui/button'
 import { Table, TableSearch, type TColumn } from '@/components/ui/table'
+import { useState } from 'react'
+import { ModalForm } from '@/components/ui/modal'
+import { TextField } from '@/components/ui/textfield'
+import { LabelForm, LabelValidator } from '@/components/ui/label'
+import { Switch } from '@/components/ui/switch'
+import { useJobDepartment } from '@/hooks/modules/job-department'
 
 type TJobDepartment = {
     id: string,
     name: string
 }
 export default function JobDepartmentPage() {
+
+    const [modalOpen, setModalOpen] = useState<boolean>(false)
+
+    const {
+        register,
+        errors,
+        onSubmit,
+        handleSubmit,
+        isSubmitted
+    } = useJobDepartment()
 
     const columns: TColumn<TJobDepartment>[] = [
         {
@@ -65,6 +81,7 @@ export default function JobDepartmentPage() {
                         <TableSearch />
                         <Button
                             icon={LuCirclePlus}
+                            onClick={() => setModalOpen(true)}
                         >
                             <span>Create</span>
                         </Button>
@@ -77,6 +94,43 @@ export default function JobDepartmentPage() {
                     currentPage={0}
                 />
             </Card>
+            <ModalForm
+                show={modalOpen}
+                className='w-100'
+                onClose={() => setModalOpen(false)}
+                onSubmit={handleSubmit(onSubmit)}
+                onProcess={isSubmitted}
+                title='Form Unit Kerja'
+            >
+                <div className='w-full mb-1.5'>
+                    <LabelForm text='Kode' />
+                    <TextField
+                        placeholder='kode'
+                        isError={!!errors.code}
+                        {...register('code')}
+                    />
+                    {errors.code && <LabelValidator text={errors.code.message} />}
+                </div>
+                <div className='w-full mb-2.5'>
+                    <LabelForm text='Nama' />
+                    <TextField
+                        placeholder='nama'
+                        isError={!!errors.name}
+                        {...register('name')}
+                    />
+                    {errors.name && <LabelValidator text={errors.name.message} />}
+                </div>
+                <div className='w-full mb-3'>
+                    <LabelForm text='Medical Staff' className='mb-2' />
+                    <div className='flex items-center gap-1.5'>
+                        <Switch
+                            {...register('isMedical')}
+                        />
+                        <LabelForm text='Apakah pekerjaan ini berhubungan dengan medis?' className='mb-0 font-normal' />
+                    </div>
+                    {errors.isMedical && <LabelValidator text={errors.isMedical.message} />}
+                </div>
+            </ModalForm>
         </div>
     )
 }
