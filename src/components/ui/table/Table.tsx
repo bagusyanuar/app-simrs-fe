@@ -4,6 +4,7 @@ import type { TColumn, TAction } from './types/type'
 import TableHeader from './TableHeader'
 import TableRow from './TableRow'
 import TableAction from './TableAction'
+import TablePagination from './TablePagination'
 
 interface IProps<T> {
     columns: TColumn<T>[]
@@ -18,6 +19,9 @@ interface IProps<T> {
     pageSizeOptions?: number[]
     onPageSizeChange?: (size: number) => void
     action?: TAction<T>
+    totalRows?: number
+    currentPage?: number
+    pageSize?: number
 }
 
 const Table = <T,>({
@@ -33,6 +37,9 @@ const Table = <T,>({
     rowClassName = '',
     isProcessing = false,
     pageSizeOptions = [10, 25, 50],
+    totalRows = 0,
+    currentPage = 0,
+    pageSize = 10
 }: IProps<T>) => {
 
     const mergedColumns: TColumn<T>[] = useMemo(() => {
@@ -61,7 +68,7 @@ const Table = <T,>({
             className
         )}>
             <div className={twMerge(
-                'w-full overflow-x-auto rounded-md border border-gray-400 mb-1.5',
+                'w-full overflow-x-auto rounded-md border border-gray-400 mb-2',
                 containerClassName
             )}>
                 <table className={twMerge(
@@ -82,6 +89,14 @@ const Table = <T,>({
                     />
                 </table>
             </div>
+            <TablePagination
+                pageSizeOptions={pageSizeOptions}
+                onPageSizeChange={onPageSizeChange}
+                isProcessing={isProcessing}
+                totalRows={totalRows}
+                currentPage={currentPage}
+                pageSize={pageSize}
+            />
         </div>
     )
 }

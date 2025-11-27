@@ -17,7 +17,7 @@ export default function JobDepartmentPage() {
             cell: (row) => row.id,
             align: 'justify-center',
             cellClassName: 'align-top',
-            width: 'min-w-40 w-40'
+            width: 'min-w-32 w-32'
         },
         {
             key: 'name',
@@ -59,7 +59,7 @@ export default function JobDepartmentPage() {
                 subTitle='Halaman ini digunakan untuk mengelola seluruh data unit kerja yang ada di rumah sakit'
             />
             <Card>
-                <FlexBox className='justify-between mb-3'>
+                <FlexBox className='justify-between mb-5'>
                     <CardTitle title='Data Unit Kerja' icon={LuNetwork} />
                     <FlexBox className='gap-1.5'>
                         <TableSearch />
@@ -73,6 +73,8 @@ export default function JobDepartmentPage() {
                 <Table
                     columns={columns}
                     data={data}
+                    totalRows={0}
+                    currentPage={0}
                 />
             </Card>
         </div>
