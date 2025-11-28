@@ -44,7 +44,7 @@ const TextField = React.forwardRef<HTMLInputElement, IProps>(
                     ref={ref}
                     type={type}
                     className={twMerge(
-                        'w-full py-2.5 px-2.5 text-sm leading-none rounded-md text-neutral-700 focus:text-neutral-700 focus:ring-0 focus:outline-none disabled:bg-neutral-200 placeholder:text-neutral-400 transition-colors duration-300 ease-in-out',
+                        'w-full py-2.5 px-2.5 text-sm leading-none rounded-md text-neutral-700 focus:text-neutral-700 focus:ring-0 focus:outline-none disabled:bg-neutral-200 placeholder:text-neutral-400 placeholder:font-light transition-colors duration-300 ease-in-out',
                         prefixIcon && 'ps-8.5',
                         suffixIcon && 'pe-8.5',
                         inputClassName

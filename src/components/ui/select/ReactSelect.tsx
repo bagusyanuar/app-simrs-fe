@@ -65,7 +65,8 @@ const ReactSelect = <OptionType,>({
 
                     dropdownIndicator: () => twMerge(
                         '!pe-2.5 !ps-2.5 !cursor-pointer !text-neutral-700',
-                        isClearable && '!pe-2.5 !ps-0.5'
+                        isClearable && '!pe-2.5 !ps-0.5',
+                        isError && '!text-red-500'
                     ),
 
                     clearIndicator: () => twMerge(
@@ -76,7 +77,7 @@ const ReactSelect = <OptionType,>({
                         "!px-2.5 !py-[0.4rem] !leading-none !text-sm text-neutral-700 rounded-md",
 
                     placeholder: () =>
-                        "text-neutral-400 text-sm",
+                        "text-neutral-400 text-sm !font-light",
 
                     input: () =>
                         "text-neutral-700",
