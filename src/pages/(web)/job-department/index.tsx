@@ -110,6 +110,7 @@ export default function JobDepartmentPage() {
                     label='Kode'
                     className='mb-2'
                     placeholder='kode'
+                    disabled={isSubmitted}
                     isError={!!errors.code}
                     errorMessage={errors.code?.message}
                 />
@@ -119,6 +120,7 @@ export default function JobDepartmentPage() {
                     label='Nama'
                     className='mb-2'
                     placeholder='nama'
+                    disabled={isSubmitted}
                     isError={!!errors.name}
                     errorMessage={errors.name?.message}
                 />
@@ -129,6 +131,7 @@ export default function JobDepartmentPage() {
                     label='Deskripsi'
                     className='mb-2'
                     placeholder='deskripsi'
+                    disabled={isSubmitted}
                     isError={!!errors.description}
                     errorMessage={errors.description?.message}
                 />
@@ -138,6 +141,7 @@ export default function JobDepartmentPage() {
                     label='Staff Medis'
                     switchLabel='Apakah pekerjaan ini berhubungan dengan medis?'
                     className='mb-2'
+                    disabled={isSubmitted}
                     isError={!!errors.isMedical}
                     errorMessage={errors.isMedical?.message}
                 />

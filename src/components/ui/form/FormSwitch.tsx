@@ -30,7 +30,7 @@ const FormSwitch = <T extends FieldValues,>({
             'w-full',
             className
         )}>
-            {label !== '' && <LabelForm text={label} />}
+            {label !== '' && <LabelForm text={label} className='mb-1.5' />}
             <Controller
                 control={control}
                 name={name}

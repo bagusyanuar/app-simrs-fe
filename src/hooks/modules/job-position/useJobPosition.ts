@@ -7,6 +7,7 @@ const useJobPosition = () => {
     const [isSubmitted, setIsSubmitted] = useState<boolean>(false)
 
     const {
+        control: formControl,
         handleSubmit,
         register,
         formState:
@@ -35,6 +36,7 @@ const useJobPosition = () => {
     }
 
     return {
+        formControl,
         handleSubmit,
         onSubmit,
         isSubmitted,
