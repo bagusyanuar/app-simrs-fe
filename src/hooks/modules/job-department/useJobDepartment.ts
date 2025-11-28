@@ -7,6 +7,7 @@ const useJobDepartment = () => {
     const [isSubmitted, setIsSubmitted] = useState<boolean>(false)
 
     const {
+        control: formControl,
         handleSubmit,
         register,
         formState:
@@ -35,6 +36,7 @@ const useJobDepartment = () => {
     }
 
     return {
+        formControl,
         handleSubmit,
         onSubmit,
         isSubmitted,

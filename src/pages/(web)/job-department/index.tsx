@@ -5,10 +5,8 @@ import { Button } from '@/components/ui/button'
 import { Table, TableSearch, type TColumn } from '@/components/ui/table'
 import { useState } from 'react'
 import { ModalForm } from '@/components/ui/modal'
-import { TextField, TextAreaField } from '@/components/ui/textfield'
-import { LabelForm, LabelValidator } from '@/components/ui/label'
-import { Switch } from '@/components/ui/switch'
 import { useJobDepartment } from '@/hooks/modules/job-department'
+import { FormText, FormTextArea, FormSwitch } from '@/components/ui/form'
 
 type TJobDepartment = {
     id: string,
@@ -19,7 +17,7 @@ export default function JobDepartmentPage() {
     const [modalOpen, setModalOpen] = useState<boolean>(false)
 
     const {
-        register,
+        formControl,
         errors,
         onSubmit,
         handleSubmit,
@@ -106,44 +104,43 @@ export default function JobDepartmentPage() {
                 onProcess={isSubmitted}
                 title='Form Unit Kerja'
             >
-                <div className='w-full mb-1.5'>
-                    <LabelForm text='Kode' />
-                    <TextField
-                        placeholder='kode'
-                        isError={!!errors.code}
-                        {...register('code')}
-                    />
-                    {errors.code && <LabelValidator text={errors.code.message} />}
-                </div>
-                <div className='w-full mb-1.5'>
-                    <LabelForm text='Nama' />
-                    <TextField
-                        placeholder='nama'
-                        isError={!!errors.name}
-                        {...register('name')}
-                    />
-                    {errors.name && <LabelValidator text={errors.name.message} />}
-                </div>
-                <div className='w-full mb-2.5'>
-                    <LabelForm text='Deskripsi' />
-                    <TextAreaField
-                        rows={4}
-                        placeholder='deskripsi'
-                        isError={!!errors.description}
-                        {...register('description')}
-                    />
-                    {errors.description && <LabelValidator text={errors.description.message} />}
-                </div>
-                <div className='w-full mb-3'>
-                    <LabelForm text='Medical Staff' className='mb-2' />
-                    <div className='flex items-center gap-1.5'>
-                        <Switch
-                            {...register('isMedical')}
-                        />
-                        <LabelForm text='Apakah pekerjaan ini berhubungan dengan medis?' className='mb-0 font-normal' />
-                    </div>
-                    {errors.isMedical && <LabelValidator text={errors.isMedical.message} />}
-                </div>
+                <FormText
+                    control={formControl}
+                    name='code'
+                    label='Kode'
+                    className='mb-2'
+                    placeholder='kode'
+                    isError={!!errors.code}
+                    errorMessage={errors.code?.message}
+                />
+                <FormText
+                    control={formControl}
+                    name='name'
+                    label='Nama'
+                    className='mb-2'
+                    placeholder='nama'
+                    isError={!!errors.name}
+                    errorMessage={errors.name?.message}
+                />
+                <FormTextArea
+                    control={formControl}
+                    rows={4}
+                    name='description'
+                    label='Deskripsi'
+                    className='mb-2'
+                    placeholder='deskripsi'
+                    isError={!!errors.description}
+                    errorMessage={errors.description?.message}
+                />
+                <FormSwitch
+                    control={formControl}
+                    name='isMedical'
+                    label='Staff Medis'
+                    switchLabel='Apakah pekerjaan ini berhubungan dengan medis?'
+                    className='mb-2'
+                    isError={!!errors.isMedical}
+                    errorMessage={errors.isMedical?.message}
+                />
             </ModalForm>
         </div>
     )
