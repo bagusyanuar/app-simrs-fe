@@ -42,8 +42,9 @@ const AppSidebar = () => {
                                 isActive: pathname === ROUTE.installation
                             },
                             {
-                                to: '#',
-                                text: 'Unit'
+                                to: ROUTE.hospitalUnit,
+                                text: 'Unit',
+                                isActive: pathname === ROUTE.hospitalUnit
                             },
                             {
                                 to: '#',
