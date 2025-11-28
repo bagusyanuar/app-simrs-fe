@@ -6,11 +6,9 @@ import { Button } from '@/components/ui/button'
 import { Table, TableSearch, type TColumn } from '@/components/ui/table'
 import { useState } from 'react'
 import { ModalForm } from '@/components/ui/modal'
-import { TextField, TextAreaField } from '@/components/ui/textfield'
-import { LabelForm, LabelValidator } from '@/components/ui/label'
 import { useHospitalInstallation } from '@/hooks/modules/installation'
 import { DEPARTMENT_TYPE_OPTIONS } from '@/const/department-type.constant'
-import { ReactSelect } from '@/components/ui/select'
+import { FormText, FormTextArea, FormSelect } from '@/components/ui/form'
 
 type THospitalInstallation = {
     id: string
@@ -24,7 +22,7 @@ export default function InstallationPage() {
     const [modalOpen, setModalOpen] = useState<boolean>(false)
 
     const {
-        register,
+        formControl,
         errors,
         onSubmit,
         handleSubmit,
@@ -120,39 +118,45 @@ export default function InstallationPage() {
                 onProcess={isSubmitted}
                 title='Form Instalasi Rumah Sakit'
             >
-                <div className='w-full mb-1.5'>
-                    <LabelForm text='Kode' />
-                    <TextField
-                        placeholder='kode'
-                        isError={!!errors.code}
-                        {...register('code')}
-                    />
-                    {errors.code && <LabelValidator text={errors.code.message} />}
-                </div>
-                <div className='w-full mb-1.5'>
-                    <LabelForm text='Nama' />
-                    <TextField
-                        placeholder='nama'
-                        isError={!!errors.name}
-                        {...register('name')}
-                    />
-                    {errors.name && <LabelValidator text={errors.name.message} />}
-                </div>
-                <div className='w-full mb-1.5'>
-                    <LabelForm text='Tipe' />
-                    <ReactSelect options={DEPARTMENT_TYPE_OPTIONS} />
-                    {errors.type && <LabelValidator text={errors.type.message} />}
-                </div>
-                <div className='w-full mb-2.5'>
-                    <LabelForm text='Deskripsi' />
-                    <TextAreaField
-                        rows={4}
-                        placeholder='deskripsi'
-                        isError={!!errors.description}
-                        {...register('description')}
-                    />
-                    {errors.description && <LabelValidator text={errors.description.message} />}
-                </div>
+                <FormText
+                    control={formControl}
+                    name='code'
+                    label='Kode'
+                    className='mb-2'
+                    placeholder='kode'
+                    isError={!!errors.code}
+                    errorMessage={errors.code?.message}
+                />
+                <FormText
+                    control={formControl}
+                    name='name'
+                    label='Nama'
+                    className='mb-2'
+                    placeholder='nama'
+                    isError={!!errors.name}
+                    errorMessage={errors.name?.message}
+                />
+                <FormSelect
+                    control={formControl}
+                    name='type'
+                    options={DEPARTMENT_TYPE_OPTIONS}
+                    label='Tipe Instalasi'
+                    placeholder='pilih tipe instalasi'
+                    className='mb-2'
+                    isError={!!errors.type}
+                    errorMessage={errors.type?.message}
+                    isClearable
+                />
+                <FormTextArea
+                    control={formControl}
+                    rows={4}
+                    name='description'
+                    label='Deskripsi'
+                    className='mb-2'
+                    placeholder='deskripsi'
+                    isError={!!errors.description}
+                    errorMessage={errors.description?.message}
+                />
             </ModalForm>
         </div>
     )

@@ -11,6 +11,7 @@ const useHospitalInstallation = () => {
 
     const {
         handleSubmit,
+        control: formControl,
         register,
         formState:
         {
@@ -38,6 +39,7 @@ const useHospitalInstallation = () => {
     }
 
     return {
+        formControl,
         handleSubmit,
         onSubmit,
         isSubmitted,
