@@ -4,10 +4,10 @@ import { LuCirclePlus } from 'react-icons/lu'
 import { BiBuilding } from 'react-icons/bi'
 import { Button } from '@/components/ui/button'
 import { Table, TableSearch, type TColumn } from '@/components/ui/table'
-import { useState } from 'react'
 import { ModalForm, ModalConfirmation } from '@/components/ui/modal'
 import { useHospitalUnit } from '@/hooks/modules/hospital-unit'
 import { FormText, FormTextArea, FormSelect } from '@/components/ui/form'
+
 
 type THospitalUnit = {
     id: string
@@ -18,16 +18,18 @@ type THospitalUnit = {
 }
 
 export default function HospitalUnitPage() {
-    const [modalOpen, setModalOpen] = useState<boolean>(false)
-    const [confirmation, setConfirmation] = useState<boolean>(false)
 
     const {
         formControl,
         errors,
-        onSubmit,
-        handleSubmit,
+        submitConfirmation,
         isSubmitted,
-        reset
+        isConfirmation,
+        showConfirmation,
+        closeConfirmation,
+        isModalOpen,
+        showModal,
+        closeModal,
     } = useHospitalUnit()
 
     const columns: TColumn<THospitalUnit>[] = [
@@ -95,7 +97,7 @@ export default function HospitalUnitPage() {
                         <TableSearch />
                         <Button
                             icon={LuCirclePlus}
-                            onClick={() => setModalOpen(true)}
+                            onClick={showModal}
                         >
                             <span>Create</span>
                         </Button>
@@ -109,13 +111,10 @@ export default function HospitalUnitPage() {
                 />
             </Card>
             <ModalForm
-                show={modalOpen}
+                show={isModalOpen}
                 className='w-100'
-                onClose={() => {
-                    setModalOpen(false)
-                    reset()
-                }}
-                onSubmit={() => setConfirmation(true)}
+                onClose={closeModal}
+                onSubmit={showConfirmation}
                 onProcess={isSubmitted}
                 title='Form Unit Rumah Sakit'
             >
@@ -142,6 +141,7 @@ export default function HospitalUnitPage() {
                     isError={!!errors.installationId}
                     errorMessage={errors.installationId?.message}
                     isClearable
+                    disabled={isSubmitted}
                 />
                 <FormText
                     control={formControl}
@@ -151,6 +151,7 @@ export default function HospitalUnitPage() {
                     placeholder='kode'
                     isError={!!errors.code}
                     errorMessage={errors.code?.message}
+                    disabled={isSubmitted}
                 />
                 <FormText
                     control={formControl}
@@ -160,6 +161,7 @@ export default function HospitalUnitPage() {
                     placeholder='nama'
                     isError={!!errors.name}
                     errorMessage={errors.name?.message}
+                    disabled={isSubmitted}
                 />
                 <FormTextArea
                     control={formControl}
@@ -170,11 +172,16 @@ export default function HospitalUnitPage() {
                     placeholder='deskripsi'
                     isError={!!errors.description}
                     errorMessage={errors.description?.message}
+                    disabled={isSubmitted}
                 />
             </ModalForm>
-            <ModalConfirmation show={confirmation}>
-                <span>Cek</span>
-            </ModalConfirmation>
+            <ModalConfirmation
+                show={isConfirmation}
+                title='KONFIRMASI PENAMBAHAN UNIT'
+                description='Anda akan menambahkan unit rumah sakit baru, pastikan data yang sudah ada input sudah benar!'
+                onClose={closeConfirmation}
+                onSubmit={submitConfirmation}
+            />
         </div>
     )
 }

@@ -2,6 +2,7 @@ import { Outlet } from 'react-router-dom'
 import { AppSidebar } from '@/components/layout/sidebar'
 import { AppNavbar } from '@/components/layout/navbar'
 import { AppContent } from '@/components/layout/content'
+import { ToastContainer } from '@/components/ui/toast'
 
 export default function AppLayout() {
     return (
@@ -11,6 +12,7 @@ export default function AppLayout() {
             <AppContent>
                 <Outlet />
             </AppContent>
+            <ToastContainer />
         </main>
     )
 }
