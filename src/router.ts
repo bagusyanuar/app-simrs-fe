@@ -5,6 +5,7 @@ import { components, hooks, utils } from '@generouted/react-router/client'
 
 export type Path =
   | `/`
+  | `/clinical-code`
   | `/dashboard`
   | `/hospital-unit`
   | `/installation`

@@ -1,4 +1,3 @@
-import React from 'react'
 import SidebarBrand from './SidebarBrand'
 import { SidebarItem, SidebarLabel, SidebarTree } from '@/components/ui/sidebar'
 import { LuLayoutDashboard, LuFolderArchive } from 'react-icons/lu'
@@ -47,8 +46,9 @@ const AppSidebar = () => {
                                 isActive: pathname === ROUTE.hospitalUnit
                             },
                             {
-                                to: '#',
-                                text: 'Kode EHR'
+                                to: ROUTE.clinicalCode,
+                                text: 'Kode Klinis ICD',
+                                isActive: pathname === ROUTE.clinicalCode
                             },
                         ]}
                     />
