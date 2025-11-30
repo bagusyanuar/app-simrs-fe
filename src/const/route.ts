@@ -6,6 +6,7 @@ export const ROUTE = {
     hospitalUnit: "/hospital-unit",
     installation: "/installation",
     clinicalCode: "/clinical-code",
+    clinic: "/clinic",
 }
 
 export const MASTER_ROUTE_PATHS = [
@@ -13,5 +14,6 @@ export const MASTER_ROUTE_PATHS = [
     ROUTE.jobPosition,
     ROUTE.installation,
     ROUTE.hospitalUnit,
-    ROUTE.clinicalCode
+    ROUTE.clinicalCode,
+    ROUTE.clinic
 ]

@@ -50,6 +50,11 @@ const AppSidebar = () => {
                                 text: 'Kode Klinis ICD',
                                 isActive: pathname === ROUTE.clinicalCode
                             },
+                            {
+                                to: ROUTE.clinic,
+                                text: 'Poliklinik',
+                                isActive: pathname === ROUTE.clinic
+                            },
                         ]}
                     />
                     <SidebarTree
